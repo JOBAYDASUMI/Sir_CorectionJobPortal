@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            color: #333;
+            margin: 0;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .metric {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 25%;
+            transition: transform 0.3s;
+        }
+
+        .metric:hover {
+            transform: scale(1.05);
+        }
+
+        .metric i {
+            font-size: 3em;
+            color: #28a745;
+        }
+
+        .metric h3 {
+            margin: 10px 0 0;
+            font-size: 1.5em;
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-control {
+            padding: 15px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .btn {
+            padding: 15px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .job-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+        }
+
+        .job-card:hover {
+            transform: scale(1.02);
+        }
+
+        .job-card h4 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .job-card p {
+            color: #666;
+        }
+
+        .apply-button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .apply-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <div class="header">
+        <h1>Welcome to Career Connect</h1>
+    </div>
+    <div class="metrics">
+        <div class="metric">
+            <i class="fas fa-briefcase"></i>
+            <h3>Total Jobs: {{ totaljob }}</h3>
+        </div>
+        <div class="metric">
+            <i class="fas fa-users"></i>
+            <h3>Total Users: {{ totaluser }}</h3>
+        </div>
+        <div class="metric">
+            <i class="fas fa-check-circle"></i>
+            <h3>Total Applications: {{ total_apply }}</h3>
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <form action="{% url 'searchJob' %}" method="GET" class="input-group">
+            <input type="text" class="form-control" name="query" placeholder="Search for jobs..." id="search-input">
+            <button class="btn" id="search-button">Search</button>
+        </form>
+    </div>
+
+    
+    {% for i in latest_jobs %}
+        
+    <!-- Example Job Cards -->
+    <div class="job-card">
+        <h4>{{i.job_title}}</h4>
+        <p>Company Name: Tech Solutions</p>
+        <p>Location: New York, NY</p>
+        <p>{{i.job_description}}</p>
+        <p>{{i.created_at}}</p>
+        <a href="#" class="apply-button">Apply Now</a>
+    </div>
+
+ 
+    <!-- Add more job cards as needed -->
+    {% endfor %}
+        
+
+
+</body>
+</html>
+{% endblock body %}

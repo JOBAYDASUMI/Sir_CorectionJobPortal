@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+</style>
+</head>
+<body>
+
+
+
+{% for i in job %}
+
+<h2>Title:{{i.job_title}}</h2>
+
+<div class="card">
+  <img src="/{{i.image}}" alt="Avatar" height="50px" width="100px">
+  <div class="container">
+    <h4><b>Vacancy:{{i.vacancy}}</b></h4> 
+    <p>Job_description:{{i.job_description}}</p>
+    
+    <p>Skill:{{i.skills}}</p> 
+
+    
+    {% if i.category == 'full_time' %}
+
+    <h1>Full Time</h1>
+
+    {% endif %}
+
+    {% if i.category == 'part_time' %}
+    <h1>Part Time</h1>
+      
+    {% endif %}
+
+    {% if request.user.user_type == 'seeker' %}
+    <a href="{% url 'applyJob' i.id %}">Apply Job</a>
+      
+    {% endif %}
+      
+  </div>
+</div>
+  
+{% endfor %}
+  
+
+</body>
+</html> 
+    
+{% endblock body %}
